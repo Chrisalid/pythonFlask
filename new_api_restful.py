@@ -1,5 +1,6 @@
-from flask import Flask, json, request  # , jsonify  # , json
+from flask import Flask, json, request
 from flask_restful import Resource, Api
+from habilities import Habilities, Habilities_Index, Hability_Name
 app = Flask(__name__)
 api = Api(app)
 
@@ -42,7 +43,10 @@ class Tasks_List_Index(Resource):
 
 
 class Tasks(Resource):
-    '''Return The Tasks List'''
+    '''Returns The Tasks List
+
+    Return tasks and perform a GET or POST request.
+    '''
     def get(self):
         return tasks
 
@@ -56,6 +60,9 @@ class Tasks(Resource):
 
 api.add_resource(Tasks_List_Index, '/tasks/<int:id>/')
 api.add_resource(Tasks, '/tasks/')
+api.add_resource(Habilities, '/habilities/')
+api.add_resource(Habilities_Index, '/habilities/<int:id>/')
+api.add_resource(Hability_Name, '/habilities/<name>/')
 
 
 if __name__ == '__main__':
