@@ -14,6 +14,11 @@ tasks = [{'id': 0,
 
 
 class Tasks_List_Index(Resource):
+    '''Find Tasks Through Indexes
+
+    After finding the task, make one
+    of the GET, PUT or DELETE requests.
+    '''
     def get(self, id):
         try:
             response = tasks[id]
@@ -31,16 +36,25 @@ class Tasks_List_Index(Resource):
         tasks[id]['status'] = data
         return tasks[id]
 
-
-api.add_resource(Tasks_List_Index, '/tasks/<int:id>/')
+    def delete(self, id):
+        tasks.pop(id)
+        return {'status': 'sucess', 'message': 'User Deleted!'}
 
 
 class Tasks(Resource):
+    '''Return The Tasks List'''
     def get(self):
         return tasks
-    # def post(self):
+
+    def post(self):
+        data = json.loads(request.data)
+        id = len(tasks)
+        data['id'] = id
+        tasks.append(data)
+        return tasks[id]
 
 
+api.add_resource(Tasks_List_Index, '/tasks/<int:id>/')
 api.add_resource(Tasks, '/tasks/')
 
 
