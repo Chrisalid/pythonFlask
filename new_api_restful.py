@@ -13,6 +13,10 @@ tasks = [{'id': 0,
           'tarefa': 'Program in C',
           'status': 'Fail'}]
 
+class Begin(Resource):
+    def get(self):
+        return 'Welcome!'
+
 
 class Tasks_List_Index(Resource):
     '''Find Tasks Through Indexes
@@ -58,6 +62,7 @@ class Tasks(Resource):
         return tasks[id]
 
 
+api.add_resource(Begin, '/')
 api.add_resource(Tasks_List_Index, '/tasks/<int:id>/')
 api.add_resource(Tasks, '/tasks/')
 api.add_resource(Habilities, '/habilities/')
